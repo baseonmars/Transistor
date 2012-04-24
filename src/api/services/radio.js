@@ -7,7 +7,9 @@ define(['../responses/xspf.js'], function (xspf) {
                 auth: true,
                 method: 'GET',
                 parser: function (data, type) { 
-                    return JSON.stringify(xspf(data));
+                   var string = xspf(data);
+                   string = JSON.stringify(string);
+                   return string;
                 }
             },
             tune: {

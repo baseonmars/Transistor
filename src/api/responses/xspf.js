@@ -3,11 +3,11 @@ define(['./track.js'], function (track) {
     return function(json, type) {
         var spec = $.parseJSON(json);
         var xspf = {
-            title :spec.playlist.title,
-            creator :spec.playlist.creator,
-            date :new Date(spec.playlist.date),
-            expiry :new Date(+new Date() + (spec.playlist.link['#text']*1000)),
-            tracks :[]
+            title:spec.playlist.title,
+            creator:spec.playlist.creator,
+            date:new Date(Date(spec.playlist.date)),
+            expiry:new Date(+new Date() + (spec.playlist.link['#text']*1000)),
+            tracks:[]
         };
 
         var trackSpec = spec.playlist.trackList.track;

@@ -21,9 +21,8 @@ define([
         tune: function(url, ok, error) {
 
             var self = this;
-            var request = this.api.post("radio.tune", {station: url});
+            var request = this.api.post("radio.tune", {station: url}, ok, error);
 
-            request.fail(error);
             request.done(function (data) {
                 self.station = data;
             });
@@ -85,6 +84,10 @@ define([
                 duration: this.current().duration,
                 streamId: this.current().streamId
             });
+        },
+
+        volume: function(vol) {
+            this.player.setVolume(vol);
         }
     });
 
