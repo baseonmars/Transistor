@@ -16,6 +16,15 @@ define([
             this.playlist.api    = this.api;
             this.player.playlist = this.playlist;
             this.station = null;
+
+            var self = this;
+            amplify.subscribe('transistorplayer:finished', function (track) {
+                self.play();
+                console.log('finished', track.title, track.artist);
+            });
+            amplify.subscribe('transistorplayer:playing', function (track) {
+                console.log('playling', track.title, track.artist);
+            });
         },
 
         tune: function(url, ok, error) {
@@ -49,12 +58,13 @@ define([
         },
 
         pause: function() {
+
             this.paused = true;
             this.player.pause();
         },
 
         skip: function() {
-            this.player.skip();
+            this.play();
         },
 
         stopNext: function() {
