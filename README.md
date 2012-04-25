@@ -12,9 +12,9 @@ Audio support is provided by SoundManager2, HTML5 support is experimental.
 Transistor depends on: JQuery, SoundManager2, amplify.js
 
 var radio = new Transistor({
-    key: API\_KEY,
-    secret: API\_SECRET,
-    session: USER\_SESSION\_KEY
+    key: API_KEY,
+    secret: API_SECRET,
+    session: USER_SESSION_KEY
 });
 
 Tune a station and start playing it
