@@ -66,6 +66,19 @@ define([
         skip: function(ok, error) {
 
             var oldPlaying = this.playlist.current();
+
+            var request = this.next().done(ok).fail(error);
+            request.done(function() {
+                if (oldPlaying) {
+                    amplify.publish("transistor:skipped", oldPlaying);
+                }
+            });
+
+            return request;
+        },
+
+        next: function(ok, error) {
+
             var next = this.playlist.next();
             var request = $.Deferred().done(ok).fail(error);
 
@@ -85,10 +98,6 @@ define([
                 } catch (e) {
                     request.reject(e);
                 }
-            }
-
-            if (oldPlaying) {
-                amplify.publish("transistor:skipped", oldPlaying);
             }
 
             return request;
