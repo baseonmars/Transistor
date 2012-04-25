@@ -1,5 +1,5 @@
 window.SM2_DEFER = true;
-define(['../lib/soundmanager2.js'],function () {
+define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
 
     // Give each player a unique ID number
     var _id = 0;
