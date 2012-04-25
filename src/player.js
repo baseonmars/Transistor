@@ -52,7 +52,7 @@ define(['../lib/soundmanager2.js'],function () {
                     }
                 });
                 this.audio = audio;
-            } else if (this.audio) {
+            } else if (this.hasTrack()) {
                 this.audio.resume();
             }
         },
@@ -60,12 +60,18 @@ define(['../lib/soundmanager2.js'],function () {
             this.audio.pause();
         },
         setVolume: function (vol) {
-            soundManager.setVolume(this.audio.sid, vol);
+            if (this.audio) {
+                soundManager.setVolume(this.audio.sid, vol);
+            }
         },
         onSMReady: function () {
             this.ready = _soundManagerReady;
             amplify.publish('transistorplayer:ready');
+        },
+        hasTrack: function () {
+            return this.audio && this.audio.playState === 1;
         }
+
     });
 
     return Player;
