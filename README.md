@@ -1,6 +1,8 @@
 Transistor - Last.fm Radio Client
 =================================
 
+This is very much in an alpha stage. The auth implementation is not fit for anything other than local testing as exposing your secret on a public website is a terrible idea. We plan to implement OAuth2 client flow for Last.fm soon.
+
 Transistor is a client for Last.fm Radio that runs in the browser.
 
 You'll need an API account with radio access to use this. 
@@ -9,13 +11,21 @@ Audio support is provided by SoundManager2, HTML5 support is experimental.
 
 ## Usage
 
-Transistor depends on: JQuery, SoundManager2, amplify.js
+Transistor depends on: JQuery, SoundManager2, amplify.js, these are currently included in the package but are
+liable to change.
 
-var radio = new Transistor({
-    key: API\_KEY,
-    secret: API\_SECRET,
-    session: USER\_SESSION\_KEY
-});
+
+In your HTML
+
+    <script data-main="main" src="./lib/require.js"></script>
+
+Authenticate (obtaining a session is left as an exercise to the reader. 
+
+    var radio = new Transistor({
+        key: API\_KEY,
+        secret: API\_SECRET,
+        session: USER\_SESSION\_KEY
+    });
 
 Tune a station and start playing it
 
