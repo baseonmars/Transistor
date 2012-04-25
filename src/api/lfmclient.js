@@ -19,8 +19,8 @@ define(['./services.js'], function (Services) {
             data: $.extend({
                 method: method,
                 api_key: this.apiKey,
-                sk: this.session,
                 format: 'json',
+                sk: this.session,
                 api_sig: this.sign(method, params)
             }, params),
             dataFilter: this.parserFor(method)
