@@ -7,6 +7,41 @@ You'll need an API account with radio access to use this.
 
 Audio support is provided by SoundManager2, HTML5 support is experimental.
 
+## Usage
+
+Transistor depends on: JQuery, SoundManager2, amplify.js
+
+var radio = new Transistor({
+    key: API\_KEY,
+    secret: API\_SECRET,
+    session: USER\_SESSION\_KEY
+});
+
+Tune a station and start playing it
+
+    radio.tune("lastfm://user/baseonmars/library/mix", function () {
+        radio.play();
+    });
+
+Or maybe you like deffered objects?
+
+    var request = radio.tune("lastfm://artist/DJ+SPINN")
+    request.done(function () {
+        radio.play();
+    });
+
+Love, Ban. These all act on the currently playing track
+
+    radio.love();
+    radio.ban();
+
+But this'll also work:
+
+    radio.love({
+        track: "Free Swim",
+        artist: "Debasser"
+    });
+
 ## Licence
 
 Copyright (C) 2012 Daniel Etherington
