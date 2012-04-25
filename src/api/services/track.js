@@ -17,7 +17,7 @@ define(['../responses/ok.js', '../responses/nowPlaying.js'], function (ok, nowPl
                    return JSON.stringify(ok(data, type));
                 }
             },
-            nowPlaying: {
+            updateNowPlaying: {
                 auth: true,
                 method: 'POST',
                 parser: function (data, type) { 
