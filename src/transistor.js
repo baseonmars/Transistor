@@ -12,6 +12,7 @@ define([
             this.player      = cfg.player || new Player();
             this.api         = cfg.api || new API(cfg.key, cfg.secret, cfg.session);
             this.playlist    = cfg.playlist || new Playlist();
+            this.scrobbling  = false === cfg.scrobble ? false : true;
 
             this.playlist.api    = this.api;
             this.player.playlist = this.playlist;
@@ -20,8 +21,9 @@ define([
             var self = this;
 
             amplify.subscribe('transistorplayer:finished', this, this.onFinished);
-
             amplify.subscribe('transistorplayer:playing', this, this.onNowPlayling);
+            amplify.subscribe('transistorplayer:scrobblepoint', this, this.onScrobblePoint);
+            amplify.subscribe('transistorplayer:whileplayling', this, this.onPlayback);
         },
 
         tune: function(url, ok, error) {
@@ -139,20 +141,26 @@ define([
 
         scrobble: function (track, ok, error) {
 
-            track = track || this.playlist.current();
-            
-            var request = this.api.request('track.scrobble', {
-                timestamp: track.start,
-                track: track.name,
-                artist: track.title,
-                album: track.album,
-                duration: track.duration,
-                streamId: track.streamId
-            }).done(ok).fail(error);
+            var request;
+            if (this.scrobbling) {
+                track = track || this.playlist.current();
 
-            request.done(function () {
-                amplify.publish('transistor:scrobbled', track);
-            });
+                request = this.api.request("track.scrobble", {
+                    "artist"    : track.artist,
+                    "track"     : track.title,
+                    "timestamp" : track.start,
+                    "album"     : track.album,
+                    "duration"  : Math.floor(track.duration/1000),
+                    "chosenByUser": track.chosenByUser ? 1 : 0
+                }).done(ok).fail(error);
+
+                request.done(function () {
+                    amplify.publish('transistor:scrobbled', track);
+                });
+            } else {
+                
+                request = $.Deferred().fail(error).reject();
+            }
 
             return request;
         },
@@ -162,20 +170,67 @@ define([
             this.player.setVolume(vol);
         },
 
-        onNowPlayling: function (track) {
+        setScrobble: function(scrobble) {
 
-            return this.api.request('track.updateNowPlaying', {
-                track: track.title,
-                artist: track.artist,
-                album: track.album,
-                duration: Math.floor(track.duration/1000)
-            });
+            this.scrobble = scrobble;
         },
 
-        onFinished: function (track) {
+        scrobblePoint: function(track) {
+
+            var minScrobble = 30000, maxScrobble = 240000;
+            var duration = track.duration;
+            var scrobblePoint, midPoint;
+
+            if (duration >= minScrobble) {
+                midPoint = Math.floor(duration / 2);
+                if (midPoint >= maxScrobble) {
+                    scrobblePoint = maxScrobble;
+                } else {
+                    scrobblePoint = midPoint;
+                }
+            } else {
+                scrobblePoint = false;
+            }
+            return scrobblePoint;
+        },
+
+        onNowPlayling: function(id, track) {
+
+            if (this.player.id !== id) return;
+
+            track.start = Math.floor((new Date()).getTime() / 1000);
+            track.scrobblePoint = this.scrobblePoint(track);
+
+            var request;
+            if (this.scrobbling) {
+                this.api.request('track.updateNowPlaying', {
+                    'track'    : track.title,
+                    'artist'   : track.artist,
+                    'album'    : track.album,
+                    'duration' : Math.floor(track.duration/1000)
+                });
+            }
+        },
+
+        onFinished: function(id, track) {
+
+            if (this.player.id !== id) return;
 
             this.play();
+        },
+
+        onPlayback: function(id, track, timings) {
+
+            if (this.player.id !== id) return;
+
+            if (!track.scrobbled && 
+                track.scrobblePoint && 
+                timings.position >= track.scrobblePoint) {
+                track.scrobbled = true;
+                this.scrobble(track);
+            }
         }
+
     });
 
     return Transistor;

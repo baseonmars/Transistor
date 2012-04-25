@@ -17,6 +17,7 @@ define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
             window.soundManager = new SoundManager('/transistor/lib'); // Flash expects window.soundManager.
             soundManager.beginDelayedInit();
             this.playlist = null;
+            this.volume = 100;
         },
 
         play: function (track) {
@@ -32,23 +33,30 @@ define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
                     autoLoad: true,
                     autoPlay: true,
                     multishop: false,
+                    volume: this.volume,
                     onfinish: function () {
-                        amplify.publish('transistorplayer:finished', track);
+                        amplify.publish('transistorplayer:finished', self.id, track);
                     },
                     onstop: function () {
-                        amplify.publish('transistorplayer:stopped', track);
+                        amplify.publish('transistorplayer:stopped', self.id, track);
                     },
                     onpause: function () {
-                        amplify.publish('transistorplayer:paused', track);
+                        amplify.publish('transistorplayer:paused', self.id, track);
                     },
                     onresume: function () {
-                        amplify.publish('transistorplayer:resumed', track);
+                        amplify.publish('transistorplayer:resumed', self.id, track);
                     },
                     onplay: function () {
-                        amplify.publish('transistorplayer:playing', track);
+                        amplify.publish('transistorplayer:playing', self.id, track);
                     },
                     onsuspend: function () {
-                        amplify.publish('transistorplayer:suspended', track);
+                        amplify.publish('transistorplayer:suspended', self.id, track);
+                    },
+                    whileplaying: function () {
+                        amplify.publish('transistorplayer:whileplayling', self.id, track, {
+                            position: this.position,
+                            duration: this.duration
+                        });
                     }
                 });
                 this.audio = audio;
@@ -60,8 +68,9 @@ define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
             this.audio.pause();
         },
         setVolume: function (vol) {
+            this.volume = vol;
             if (this.audio) {
-                soundManager.setVolume(this.audio.sid, vol);
+                soundManager.setVolume(this.audio.sID, vol);
             }
         },
         onSMReady: function () {

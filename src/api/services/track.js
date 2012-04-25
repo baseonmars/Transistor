@@ -23,6 +23,13 @@ define(['../responses/ok.js', '../responses/nowPlaying.js'], function (ok, nowPl
                 parser: function (data, type) { 
                    return JSON.stringify(nowPlaying(data, type));
                 }
+            },
+            scrobble: {
+                auth: true,
+                method: 'POST',
+                parser: function (data, type) {
+                    return data;
+                }
             }
         }
     };

@@ -1,9 +1,11 @@
 define(function () {
 
-    return function(spec, type) {
+    return function(json, type) {
 
-        if (type === 'json') {
-            spec = $.parseJSON(spec);
+        var spec = $.parseJSON(json);
+
+        if (typeof spec.error !== 'undefined') {
+            return error;
         }
 
         var np = spec.nowplaying;
@@ -18,7 +20,7 @@ define(function () {
                 corrected: np.albumArtist.corrected
             },
             track: {
-                title: np.track['#text'],
+                name: np.track['#text'],
                 corrected: np.track.corrected
             },
             album: {
