@@ -27,7 +27,7 @@ define([
         tune: function(url, ok, error) {
 
             var self = this;
-            var request = this.api.post("radio.tune", {station: url});
+            var request = this.api.request("radio.tune", {station: url});
             request.done(ok).fail(error);
 
             request.done(function (data) {
@@ -71,7 +71,7 @@ define([
 
             if (!next) {
 
-                request = this.api.get("radio.getPlaylist", {rtp: 1});
+                request = this.api.request("radio.getPlaylist", {rtp: 1});
 
                 var self = this;
                 request.done(function(data) {
@@ -98,7 +98,7 @@ define([
 
             track = track || this.playlist.current();
 
-            var request = this.api.post('track.love', {
+            var request = this.api.request('track.love', {
                 track: track.title,
                 artist: track.artist
             }).done(ok).fail(error);
@@ -114,7 +114,7 @@ define([
 
             track = track || this.playlist.current();
 
-            var request = this.api.post('track.ban', {
+            var request = this.api.request('track.ban', {
                 track: track.title,
                 artist: track.artist
             }).done(ok).fail(error);
@@ -132,7 +132,7 @@ define([
 
             track = track || this.playlist.current();
             
-            var request = this.api.post('track.scrobble', {
+            var request = this.api.request('track.scrobble', {
                 timestamp: track.start,
                 track: track.name,
                 artist: track.title,
@@ -155,7 +155,7 @@ define([
 
         onNowPlayling: function (track) {
 
-            return this.api.post('track.updateNowPlaying', {
+            return this.api.request('track.updateNowPlaying', {
                 track: track.title,
                 artist: track.artist,
                 album: track.album,
