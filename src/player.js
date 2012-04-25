@@ -14,7 +14,7 @@ define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
     var Player = Class.extend({
         init: function() {
             this.id = getId();
-            window.soundManager = new SoundManager('/transistor/lib'); // Flash expects window.soundManager.
+            window.soundManager = new SoundManager('lib'); // Flash expects window.soundManager.
             soundManager.beginDelayedInit();
             this.playlist = null;
         },
