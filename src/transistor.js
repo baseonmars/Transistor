@@ -97,6 +97,7 @@ define([
             } else {
                 try {
                     this.player.play(next);
+                    request.resolve();
                 } catch (e) {
                     request.reject(e);
                 }
