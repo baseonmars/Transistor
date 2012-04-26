@@ -1,4 +1,4 @@
-require(['./lib/transistor-0.2.js'], function () {
+require(['./lib/transistor.js'], function () {
     setTimeout(function () {
         window.radio = new Transistor({
             key: "XXX", 
