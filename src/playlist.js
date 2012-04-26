@@ -4,10 +4,7 @@ define(function () {
         
         init: function () {
 
-            this.cursor = 0;
-            this.exhausted = true;
-            this.tracks = [];
-            this.length = 0;
+            this.reset();
         },
         _extract: function(tracks, cursor) {
             var track;
@@ -29,6 +26,14 @@ define(function () {
         },
         getTracks: function () {
             return this.tracks;
+        },
+        reset: function () {
+
+            this.cursor = 0;
+            this.exhausted = true;
+            // TODO reset shouldn't create a new object for tracks
+            this.tracks = [];
+            this.length = 0;
         },
         next: function () {
             var track;
