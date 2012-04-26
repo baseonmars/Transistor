@@ -27,6 +27,15 @@ Authenticate (obtaining a session is left as an exercise to the reader.
         session: USER_SESSION_KEY
     });
 
+Or 
+
+    var radio = new Transistor({
+        key: API_KEY,
+        secret: API_SECRET
+    });
+    
+    radio.auth() // will redirect user to www.last.fm/api/auth, storing result in cookie
+
 Tune a station and start playing it
 
     radio.tune("lastfm://user/baseonmars/library/mix", function () {

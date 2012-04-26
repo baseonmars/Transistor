@@ -24,7 +24,68 @@ define([
             amplify.subscribe('transistorplayer:playing', this, this.onNowPlayling);
             amplify.subscribe('transistorplayer:scrobblepoint', this, this.onScrobblePoint);
             amplify.subscribe('transistorplayer:whileplayling', this, this.onPlayback);
+
+            var token = $.url().param('token');
+
+            if (!this.api.session && token) {
+                this.getSession(token);
+            } 
         },
+
+        /**
+        * Authenticate a user, or enter them into the web auth flow
+        * @param string session The session key
+        */
+        auth: function(session) {
+
+            if (session) {
+                this.api.session = session;
+            } else {
+                var cookie = $.cookie('transistor');
+                if (cookie) {
+                    this.api.session = cookie;
+                } else {
+                    this.api.authFlow();
+                }
+            }
+        },
+
+        deauth: function () {
+            $.cookie('transistor', null);
+            this.api.session = null;
+        },
+
+        getSession: function (token) {
+
+            var response = this.api.request('auth.getSession', {
+                token: token
+            });
+
+            var auth = this.api.request('auth.getSession', {
+                token: token
+            });
+
+            var self = this;
+            auth.done(function (session) {
+
+                self.api.session = session.key;
+
+                $.cookie('transistor', session.key, {expires: 365});
+
+                amplify.publish('transistor:authorised', session);
+
+                // clean up the url
+                if (window.history && window.history.pushState) {
+                    window.history.pushState(null, window.document.title, window.location.pathname);
+                }
+            });
+
+            auth.fail(function (data) {
+                console.log('Auth failed', data);
+            });
+
+        },
+
 
         tune: function(url, ok, error) {
 
