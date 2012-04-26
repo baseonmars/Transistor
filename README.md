@@ -14,6 +14,11 @@ Audio support is provided by SoundManager2, HTML5 support is experimental.
 Transistor depends on: JQuery, SoundManager2, amplify.js, these are currently included in the package but are
 liable to change.
 
+You'll need to load these first, you'll find the libraries at 
+http://amplifyjs.com/, http://www.jquery.com, http://www.schillmania.com/projects/soundmanager2/
+
+You'll need to put one of soundmanagers flash 8 swf's in the same dir as transistor.
+
 Authenticate (obtaining a session is left as an exercise to the reader. 
 
     var radio = new Transistor({
