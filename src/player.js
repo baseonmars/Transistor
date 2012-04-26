@@ -1,5 +1,5 @@
 window.SM2_DEFER = true;
-define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
+define(function () {
 
     // Give each player a unique ID number
     var _id = 0;
@@ -14,7 +14,7 @@ define(['../lib/soundmanager2-nodebug-jsmin.js'],function () {
     var Player = Class.extend({
         init: function() {
             this.id = getId();
-            window.soundManager = new SoundManager('lib'); // Flash expects window.soundManager.
+            window.soundManager = new SoundManager(); // Flash expects window.soundManager.
             soundManager.beginDelayedInit();
             this.playlist = null;
             this.volume = 100;
