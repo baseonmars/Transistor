@@ -77,13 +77,13 @@
             // Show the "tune" link
             $('#tune').show();
 
-            function onPlay(track) {
+            function onPlay(id, track) {
                 $('#play').hide();
                 $('#pause, #skip, #love, #ban').show();
                 $('h1').text('You are listening to '+track.title+' by '+track.artist);
             }
 
-            function onPause(track) {
+            function onPause(id, track) {
                 $('#play').show();
                 $('#pause, #skip, #love, #ban').hide();
             }
