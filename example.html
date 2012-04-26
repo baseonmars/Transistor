@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transistor demo page</title>
+    <meta charset="utf-8" />
+ 
+    <script data-main="src/main" src="./lib/require.js"></script>
+    <script type="text/javascript">
+    
+        // Two helper methods to set and get a cookie
+        // See http://www.w3schools.com/js/js_cookies.asp
+        function setCookie(c_name,value,exdays)
+        {
+            var exdate=new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+            document.cookie=c_name + "=" + c_value;
+        }
+
+        function getCookie(c_name)
+        {
+            var i,x,y,ARRcookies=document.cookie.split(";");
+            for (i=0;i<ARRcookies.length;i++)
+            {
+                x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+                y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+                x=x.replace(/^\s+|\s+$/g,"");
+                if (x==c_name)
+                {
+                    return unescape(y);
+                }
+            }
+        }
+
+    </script>
+ 
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <h1>Transistor demo page</h1>
+
+    <script type="text/javascript">
+        // Let's use the global namespace. This is just a demo after all...
+        var radio = null;
+
+        // There might be a better way to do this. Dane...?
+        require(['main'], function(main) {
+
+            // We need an API Session, API Secret and API Key. Since we don't want to
+            // store it in this file, use a cookie
+            var cfg = {
+                "key": getCookie("api_key"),
+                "secret": getCookie("api_secret"),
+                "session": getCookie("api_session")
+            }
+
+            // No cookie found? Let's ask the user
+            if (cfg.key==null || cfg.key=='') {
+                alert('To use this you have to get an last.fm API Key, API Secret and create an API Session. http://www.last.fm/api/account');
+                cfg.key=prompt("Please enter your API KEY:","");
+                cfg.secret=prompt("Please enter your API SECRET:","");
+                cfg.session=prompt("Please enter your API SESSION:","");
+                setCookie("api_key",cfg.key,365);
+                setCookie("api_secret",cfg.secret,365);
+                setCookie("api_session",cfg.session,365);
+            }    
+
+            // Create a new radio 
+            radio = new window.Transistor(cfg);
+
+            // Show the "tune" link
+            $('#tune').show();
+
+            function onPlay(track) {
+                $('#play').hide();
+                $('#pause, #skip, #love, #ban').show();
+                $('h1').text('You are listening to '+track.title+' by '+track.artist);
+            }
+
+            function onPause(track) {
+                $('#play').show();
+                $('#pause, #skip, #love, #ban').hide();
+            }
+
+            // Set up event handlers
+            amplify.subscribe('transistorplayer:playing', radio, onPlay);
+            amplify.subscribe('transistorplayer:resumed', radio, onPlay);
+            amplify.subscribe('transistorplayer:paused', radio, onPause);
+            
+        });
+
+        function tune() {
+            radio.tune($('#station').val());
+            $('#play').show();
+        }
+    </script>
+
+    <input type="text" value="lastfm://user/marekventur" id="station">
+    <a href="#" onclick="tune();" style="display:none;" id="tune">Tune</a></br>
+    <a href="#" onclick="radio.play();" style="display:none;" id="play">Play</a></br>
+    <a href="#" onclick="radio.pause();" style="display:none;" id="pause">Pause</a></br>
+    <a href="#" onclick="radio.skip();" style="display:none;" id="skip">Skip</a></br>
+    <a href="#" onclick="radio.love();" style="display:none;" id="love">Love</a></br>
+    <a href="#" onclick="radio.ban();" style="display:none;" id="ban">Ban</a></br>
+
+</body>
+</html>
