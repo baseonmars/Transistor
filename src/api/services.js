@@ -1,8 +1,9 @@
 define([
     './services/radio.js', 
     './services/track.js',
-    './services/auth.js'
-], function (radio, track, auth) {
+    './services/auth.js',
+    './services/artist.js'
+], function (radio, track, auth, artist) {
 
     var Services = {};
 
@@ -18,6 +19,11 @@ define([
 
     $.each(auth.methods, function(key, val) {
         var hash = auth['package']+"."+key;
+        Services[hash] = val;
+    });
+
+    $.each(artist.methods, function(key, val) {
+        var hash = artist['package']+"."+key;
         Services[hash] = val;
     });
 
