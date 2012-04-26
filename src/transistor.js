@@ -9,7 +9,7 @@ define([
         init: function(cfg) {
             cfg = cfg || {}; 
 
-            this.player      = cfg.player || new Player();
+            this.player      = cfg.player || new Player(cfg.swfUrl || 'lib');
             this.api         = cfg.api || new API(cfg.key, cfg.secret, cfg.session);
             this.playlist    = cfg.playlist || new Playlist();
             this.scrobbling  = false === cfg.scrobble ? false : true;

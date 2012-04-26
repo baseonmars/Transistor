@@ -12,9 +12,9 @@ define(function () {
     * Emits events through amplify.js message bus
     */
     var Player = Class.extend({
-        init: function() {
+        init: function(swfUrl) {
             this.id = getId();
-            window.soundManager = new SoundManager(); // Flash expects window.soundManager.
+            window.soundManager = new SoundManager(swfUrl); // Flash expects window.soundManager.
             soundManager.beginDelayedInit();
             this.playlist = null;
             this.volume = 100;
