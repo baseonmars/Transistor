@@ -70,11 +70,7 @@ define([
             var oldPlaying = this.playlist.current();
 
             var request = this.next().done(ok).fail(error);
-            request.done(function() {
-                if (oldPlaying) {
-                    amplify.publish("transistor:skipped", oldPlaying);
-                }
-            });
+            amplify.publish("transistor:skipped", oldPlaying);
 
             return request;
         },
