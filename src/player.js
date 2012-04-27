@@ -53,7 +53,7 @@ define(function () {
                         amplify.publish('transistorplayer:suspended', self.id, track);
                     },
                     whileplaying: function () {
-                        amplify.publish('transistorplayer:whileplayling', self.id, track, {
+                        amplify.publish('transistorplayer:whileplaying', self.id, track, {
                             position: this.position,
                             duration: this.duration
                         });

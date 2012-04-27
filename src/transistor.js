@@ -44,9 +44,9 @@ function (Playlist, API, Player) {
             var self = this;
 
             amplify.subscribe('transistorplayer:finished', this, this.onFinished);
-            amplify.subscribe('transistorplayer:playing', this, this.onNowPlayling);
+            amplify.subscribe('transistorplayer:playing', this, this.onNowPlaying);
             amplify.subscribe('transistorplayer:scrobblepoint', this, this.onScrobblePoint);
-            amplify.subscribe('transistorplayer:whileplayling', this, this.onPlayback);
+            amplify.subscribe('transistorplayer:whileplaying', this, this.onPlayback);
 
             var token = jQuery.url().param('token');
 
@@ -362,7 +362,7 @@ function (Playlist, API, Player) {
         * @param id The id of the player
         * @param track The now playing track
         */
-        onNowPlayling: function(id, track) {
+        onNowPlaying: function(id, track) {
 
             if (this.player.id !== id) return;
 
