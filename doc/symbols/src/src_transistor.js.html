@@ -254,179 +254,205 @@
 <span class='line'>247</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">done</span><span class="PUNC">(</span><span class="NAME">ok</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>248</span> 
 <span class='line'>249</span> </span><span class="WHIT">            </span><span class="NAME">request.done</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>250</span> </span><span class="WHIT">                </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:loved'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>251</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>252</span> 
-<span class='line'>253</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>254</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>255</span> 
-<span class='line'>256</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>257</span>         * Ban's and skip's a track 
-<span class='line'>258</span>         * @param [track] The track to ban
-<span class='line'>259</span>         * @param {Function} [ok] Success callback
-<span class='line'>260</span>         * @param {Function} [error] Failure callback
-<span class='line'>261</span>         * @returns {Promise} The promise return by the api request, with callbacks attached
-<span class='line'>262</span>         */</span><span class="WHIT">
-<span class='line'>263</span> </span><span class="WHIT">        </span><span class="NAME">ban</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ok</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>264</span> 
-<span class='line'>265</span> </span><span class="WHIT">            </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.playlist.current</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>266</span> 
-<span class='line'>267</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">'track.ban'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>268</span> </span><span class="WHIT">                </span><span class="NAME">track</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>269</span> </span><span class="WHIT">                </span><span class="NAME">artist</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="WHIT">
-<span class='line'>270</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">done</span><span class="PUNC">(</span><span class="NAME">ok</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>271</span> 
-<span class='line'>272</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>273</span> </span><span class="WHIT">            </span><span class="NAME">request.done</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>274</span> </span><span class="WHIT">                </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:banned'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>275</span> </span><span class="WHIT">                </span><span class="NAME">self.skip</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">                </span><span class="NAME">track.loved</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">                </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:loved'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>253</span> 
+<span class='line'>254</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>256</span> 
+<span class='line'>257</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>258</span>         * Unlove a track.
+<span class='line'>259</span>         * @param [track] The track to unlove, if not supplied
+<span class='line'>260</span>         * uses currently playing track
+<span class='line'>261</span>         * @param {Function} [ok] Success callback
+<span class='line'>262</span>         * @param {Function} [error] Failure callback
+<span class='line'>263</span>         */</span><span class="WHIT">
+<span class='line'>264</span> </span><span class="WHIT">        </span><span class="NAME">unlove</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ok</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>265</span> 
+<span class='line'>266</span> </span><span class="WHIT">            </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.playlist.current</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>267</span> 
+<span class='line'>268</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">'track.unlove'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">                </span><span class="NAME">track</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">                </span><span class="NAME">artist</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">done</span><span class="PUNC">(</span><span class="NAME">ok</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> 
+<span class='line'>273</span> </span><span class="WHIT">            </span><span class="NAME">request.done</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">                </span><span class="NAME">track.loved</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">                </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:unloved'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>276</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>277</span> 
 <span class='line'>278</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>279</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>280</span> 
 <span class='line'>281</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>282</span>         * Scrobble a track
-<span class='line'>283</span>         * @param [track] The track to scrobble, uses currently playing
-<span class='line'>284</span>         * track if none provided.
-<span class='line'>285</span>         * @param {Function} [ok] Success callback
-<span class='line'>286</span>         * @param {Function} [error] Failure callback
-<span class='line'>287</span>         * @returns {Promise} The promise return by the api request, with callbacks attached
-<span class='line'>288</span>         */</span><span class="WHIT">
-<span class='line'>289</span> </span><span class="WHIT">        </span><span class="NAME">scrobble</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ok</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>290</span> 
-<span class='line'>291</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>292</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.scrobbling</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>293</span> </span><span class="WHIT">                </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.playlist.current</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>294</span> 
-<span class='line'>295</span> </span><span class="WHIT">                </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">"track.scrobble"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>296</span> </span><span class="WHIT">                    </span><span class="STRN">"artist"</span><span class="WHIT">    </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>297</span> </span><span class="WHIT">                    </span><span class="STRN">"track"</span><span class="WHIT">     </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>298</span> </span><span class="WHIT">                    </span><span class="STRN">"timestamp"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.start</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>299</span> </span><span class="WHIT">                    </span><span class="STRN">"album"</span><span class="WHIT">     </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.album</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>300</span> </span><span class="WHIT">                    </span><span class="STRN">"duration"</span><span class="WHIT">  </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">track.duration</span><span class="PUNC">/</span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>301</span> </span><span class="WHIT">                    </span><span class="STRN">"chosenByUser"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.chosenByUser</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT">
-<span class='line'>302</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">done</span><span class="PUNC">(</span><span class="NAME">ok</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>282</span>         * Ban's and skip's a track 
+<span class='line'>283</span>         * @param [track] The track to ban
+<span class='line'>284</span>         * @param {Function} [ok] Success callback
+<span class='line'>285</span>         * @param {Function} [error] Failure callback
+<span class='line'>286</span>         * @returns {Promise} The promise return by the api request, with callbacks attached
+<span class='line'>287</span>         */</span><span class="WHIT">
+<span class='line'>288</span> </span><span class="WHIT">        </span><span class="NAME">ban</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ok</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>289</span> 
+<span class='line'>290</span> </span><span class="WHIT">            </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.playlist.current</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>291</span> 
+<span class='line'>292</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">'track.ban'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">                </span><span class="NAME">track</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>294</span> </span><span class="WHIT">                </span><span class="NAME">artist</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">done</span><span class="PUNC">(</span><span class="NAME">ok</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>296</span> 
+<span class='line'>297</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">            </span><span class="NAME">request.done</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">                </span><span class="NAME">track.banned</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>300</span> </span><span class="WHIT">                </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:banned'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">                </span><span class="NAME">self.skip</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>303</span> 
-<span class='line'>304</span> </span><span class="WHIT">                </span><span class="NAME">request.done</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>305</span> </span><span class="WHIT">                    </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:scrobbled'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>306</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>307</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>308</span> </span><span class="WHIT">                
-<span class='line'>309</span>                 </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery.Deferred</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">reject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>310</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>311</span> 
-<span class='line'>312</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>313</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>314</span> 
-<span class='line'>315</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>316</span>         * Set the player volume
-<span class='line'>317</span>         * @param {Number} vol The volume, valid ranges are 0-100
-<span class='line'>318</span>         */</span><span class="WHIT">
-<span class='line'>319</span> </span><span class="WHIT">        </span><span class="NAME">setVolume</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">vol</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>320</span> </span><span class="WHIT">            
-<span class='line'>321</span>             </span><span class="NAME">this.player.setVolume</span><span class="PUNC">(</span><span class="NAME">vol</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>322</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>323</span> 
-<span class='line'>324</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>325</span>         * Should the player send scrobble and now player notifications
-<span class='line'>326</span>         * @param {Boolean} scrobble true = scrobbling, false = private listening
-<span class='line'>327</span>         */</span><span class="WHIT">
-<span class='line'>328</span> </span><span class="WHIT">        </span><span class="NAME">setScrobble</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">scrobble</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>305</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>306</span> 
+<span class='line'>307</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>308</span>         * Scrobble a track
+<span class='line'>309</span>         * @param [track] The track to scrobble, uses currently playing
+<span class='line'>310</span>         * track if none provided.
+<span class='line'>311</span>         * @param {Function} [ok] Success callback
+<span class='line'>312</span>         * @param {Function} [error] Failure callback
+<span class='line'>313</span>         * @returns {Promise} The promise return by the api request, with callbacks attached
+<span class='line'>314</span>         */</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">        </span><span class="NAME">scrobble</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ok</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>316</span> 
+<span class='line'>317</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.scrobbling</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">                </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.playlist.current</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>320</span> 
+<span class='line'>321</span> </span><span class="WHIT">                </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">"track.scrobble"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">                    </span><span class="STRN">"artist"</span><span class="WHIT">    </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">                    </span><span class="STRN">"track"</span><span class="WHIT">     </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">                    </span><span class="STRN">"timestamp"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.start</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">                    </span><span class="STRN">"album"</span><span class="WHIT">     </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.album</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="WHIT">                    </span><span class="STRN">"duration"</span><span class="WHIT">  </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">track.duration</span><span class="PUNC">/</span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="WHIT">                    </span><span class="STRN">"chosenByUser"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.chosenByUser</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">done</span><span class="PUNC">(</span><span class="NAME">ok</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>329</span> 
-<span class='line'>330</span> </span><span class="WHIT">            </span><span class="NAME">this.scrobble</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">scrobble</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>331</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>332</span> 
-<span class='line'>333</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>334</span>         * Return the point at which a given track should be scrobbled
-<span class='line'>335</span>         * @param track The track
-<span class='line'>336</span>         * @returns {Number} The position at which the track should 
-<span class='line'>337</span>         * be scrobbled, in milliseconds
-<span class='line'>338</span>         */</span><span class="WHIT">
-<span class='line'>339</span> </span><span class="WHIT">        </span><span class="NAME">scrobblePoint</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">                </span><span class="NAME">request.done</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">                    </span><span class="NAME">amplify.publish</span><span class="PUNC">(</span><span class="STRN">'transistor:scrobbled'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">                
+<span class='line'>335</span>                 </span><span class="NAME">request</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery.Deferred</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">reject</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>337</span> 
+<span class='line'>338</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>340</span> 
-<span class='line'>341</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">minScrobble</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">30000</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">maxScrobble</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">240000</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>342</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track.duration</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>343</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">scrobblePoint</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">midPoint</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>344</span> 
-<span class='line'>345</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">minScrobble</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>346</span> </span><span class="WHIT">                </span><span class="NAME">midPoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>347</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">midPoint</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">maxScrobble</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>348</span> </span><span class="WHIT">                    </span><span class="NAME">scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">maxScrobble</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>349</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>350</span> </span><span class="WHIT">                    </span><span class="NAME">scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">midPoint</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>351</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>352</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>353</span> </span><span class="WHIT">                </span><span class="NAME">scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>354</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>355</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">scrobblePoint</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>356</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>357</span> 
-<span class='line'>358</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>359</span>         * @private
-<span class='line'>360</span>         * Now playing callback, call when a track starts playing to
-<span class='line'>361</span>         * send a now playing request
-<span class='line'>362</span>         * @param id The id of the player
-<span class='line'>363</span>         * @param track The now playing track
+<span class='line'>341</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>342</span>         * Set the player volume
+<span class='line'>343</span>         * @param {Number} vol The volume, valid ranges are 0-100
+<span class='line'>344</span>         */</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">        </span><span class="NAME">setVolume</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">vol</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">            
+<span class='line'>347</span>             </span><span class="NAME">this.player.setVolume</span><span class="PUNC">(</span><span class="NAME">vol</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>349</span> 
+<span class='line'>350</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>351</span>         * Should the player send scrobble and now player notifications
+<span class='line'>352</span>         * @param {Boolean} scrobble true = scrobbling, false = private listening
+<span class='line'>353</span>         */</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">        </span><span class="NAME">setScrobble</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">scrobble</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>355</span> 
+<span class='line'>356</span> </span><span class="WHIT">            </span><span class="NAME">this.scrobble</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">scrobble</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>358</span> 
+<span class='line'>359</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>360</span>         * Return the point at which a given track should be scrobbled
+<span class='line'>361</span>         * @param track The track
+<span class='line'>362</span>         * @returns {Number} The position at which the track should 
+<span class='line'>363</span>         * be scrobbled, in milliseconds
 <span class='line'>364</span>         */</span><span class="WHIT">
-<span class='line'>365</span> </span><span class="WHIT">        </span><span class="NAME">onNowPlaying</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">        </span><span class="NAME">scrobblePoint</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>366</span> 
-<span class='line'>367</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.player.id</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>368</span> 
-<span class='line'>369</span> </span><span class="WHIT">            </span><span class="NAME">track.start</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>370</span> </span><span class="WHIT">            </span><span class="NAME">track.scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.scrobblePoint</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>371</span> 
-<span class='line'>372</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>373</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.scrobbling</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>374</span> </span><span class="WHIT">                </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">'track.updateNowPlaying'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>375</span> </span><span class="WHIT">                    </span><span class="STRN">'track'</span><span class="WHIT">    </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>376</span> </span><span class="WHIT">                    </span><span class="STRN">'artist'</span><span class="WHIT">   </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>377</span> </span><span class="WHIT">                    </span><span class="STRN">'album'</span><span class="WHIT">    </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.album</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>378</span> </span><span class="WHIT">                    </span><span class="STRN">'duration'</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">track.duration</span><span class="PUNC">/</span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>379</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">minScrobble</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">30000</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">maxScrobble</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">240000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">track.duration</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">scrobblePoint</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">midPoint</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>370</span> 
+<span class='line'>371</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">minScrobble</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>372</span> </span><span class="WHIT">                </span><span class="NAME">midPoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">duration</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">midPoint</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">maxScrobble</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">                    </span><span class="NAME">scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">maxScrobble</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">                    </span><span class="NAME">scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">midPoint</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">                </span><span class="NAME">scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>380</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>381</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>382</span> 
-<span class='line'>383</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>384</span>         * @private
-<span class='line'>385</span>         * Track finished callback, call when a track completes
-<span class='line'>386</span>         * @param id The id of the player
-<span class='line'>387</span>         * @param track The now playing track
-<span class='line'>388</span>         */</span><span class="WHIT">
-<span class='line'>389</span> </span><span class="WHIT">        </span><span class="NAME">onFinished</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>390</span> 
-<span class='line'>391</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.player.id</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">scrobblePoint</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>382</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>383</span> 
+<span class='line'>384</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>385</span>         * @private
+<span class='line'>386</span>         * Now playing callback, call when a track starts playing to
+<span class='line'>387</span>         * send a now playing request
+<span class='line'>388</span>         * @param id The id of the player
+<span class='line'>389</span>         * @param track The now playing track
+<span class='line'>390</span>         */</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">        </span><span class="NAME">onNowPlaying</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>392</span> 
-<span class='line'>393</span> </span><span class="WHIT">            </span><span class="NAME">this.play</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>394</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>395</span> 
-<span class='line'>396</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>397</span>         * @private
-<span class='line'>398</span>         * On playback callback, call periodically to report
-<span class='line'>399</span>         * position status.
-<span class='line'>400</span>         * @param id The id of the player
-<span class='line'>401</span>         * @param track The playing track
-<span class='line'>402</span>         * @param timings The timings for the track
-<span class='line'>403</span>         * @param timings.position The position of the track in
-<span class='line'>404</span>         * milliseconds
-<span class='line'>405</span>         * @param timings.duration The duration of the track as
-<span class='line'>406</span>         * reported by the player (This may be adjusted as the track
-<span class='line'>407</span>         * is downloaded).
-<span class='line'>408</span>         */</span><span class="WHIT">
-<span class='line'>409</span> </span><span class="WHIT">        </span><span class="NAME">onPlayback</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">timings</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>410</span> 
-<span class='line'>411</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.player.id</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>412</span> 
-<span class='line'>413</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">track.scrobbled</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> 
-<span class='line'>414</span>                 </span><span class="NAME">track.scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> 
-<span class='line'>415</span>                 </span><span class="NAME">timings.position</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">track.scrobblePoint</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>416</span> </span><span class="WHIT">                </span><span class="NAME">track.scrobbled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>417</span> </span><span class="WHIT">                </span><span class="NAME">this.scrobble</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>418</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>419</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>420</span> 
-<span class='line'>421</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>422</span> 
-<span class='line'>423</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Transistor</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>424</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>425</span> </span></pre></body></html>
+<span class='line'>393</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.player.id</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> 
+<span class='line'>395</span> </span><span class="WHIT">            </span><span class="NAME">track.start</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">            </span><span class="NAME">track.scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.scrobblePoint</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>397</span> 
+<span class='line'>398</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">request</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>399</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.scrobbling</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>400</span> </span><span class="WHIT">                </span><span class="NAME">this.api.request</span><span class="PUNC">(</span><span class="STRN">'track.updateNowPlaying'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>401</span> </span><span class="WHIT">                    </span><span class="STRN">'track'</span><span class="WHIT">    </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.title</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>402</span> </span><span class="WHIT">                    </span><span class="STRN">'artist'</span><span class="WHIT">   </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.artist</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="WHIT">                    </span><span class="STRN">'album'</span><span class="WHIT">    </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">track.album</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>404</span> </span><span class="WHIT">                    </span><span class="STRN">'duration'</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">track.duration</span><span class="PUNC">/</span><span class="NUMB">1000</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>406</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>408</span> 
+<span class='line'>409</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>410</span>         * @private
+<span class='line'>411</span>         * Track finished callback, call when a track completes
+<span class='line'>412</span>         * @param id The id of the player
+<span class='line'>413</span>         * @param track The now playing track
+<span class='line'>414</span>         */</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">        </span><span class="NAME">onFinished</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>416</span> 
+<span class='line'>417</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.player.id</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>418</span> 
+<span class='line'>419</span> </span><span class="WHIT">            </span><span class="NAME">this.play</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>421</span> 
+<span class='line'>422</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>423</span>         * @private
+<span class='line'>424</span>         * On playback callback, call periodically to report
+<span class='line'>425</span>         * position status.
+<span class='line'>426</span>         * @param id The id of the player
+<span class='line'>427</span>         * @param track The playing track
+<span class='line'>428</span>         * @param timings The timings for the track
+<span class='line'>429</span>         * @param timings.position The position of the track in
+<span class='line'>430</span>         * milliseconds
+<span class='line'>431</span>         * @param timings.duration The duration of the track as
+<span class='line'>432</span>         * reported by the player (This may be adjusted as the track
+<span class='line'>433</span>         * is downloaded).
+<span class='line'>434</span>         */</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">        </span><span class="NAME">onPlayback</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">track</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">timings</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>436</span> 
+<span class='line'>437</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.player.id</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>438</span> 
+<span class='line'>439</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">track.scrobbled</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> 
+<span class='line'>440</span>                 </span><span class="NAME">track.scrobblePoint</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> 
+<span class='line'>441</span>                 </span><span class="NAME">timings.position</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">track.scrobblePoint</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="WHIT">                </span><span class="NAME">track.scrobbled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="WHIT">                </span><span class="NAME">this.scrobble</span><span class="PUNC">(</span><span class="NAME">track</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>446</span> 
+<span class='line'>447</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>448</span> 
+<span class='line'>449</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Transistor</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>451</span> </span></pre></body></html>

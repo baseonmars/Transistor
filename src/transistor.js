@@ -255,6 +255,30 @@ function (Playlist, API, Player) {
         },
 
         /**
+        * Unlove a track.
+        * @param [track] The track to unlove, if not supplied
+        * uses currently playing track
+        * @param {Function} [ok] Success callback
+        * @param {Function} [error] Failure callback
+        */
+        unlove: function(track, ok, error) {
+
+            track = track || this.playlist.current();
+
+            var request = this.api.request('track.unlove', {
+                track: track.title,
+                artist: track.artist
+            }).done(ok).fail(error);
+
+            request.done(function() {
+                track.loved = false;
+                amplify.publish('transistor:unloved', track);
+            });
+
+            return request;
+        },
+
+        /**
         * Ban's and skip's a track 
         * @param [track] The track to ban
         * @param {Function} [ok] Success callback
