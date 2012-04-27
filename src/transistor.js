@@ -247,6 +247,7 @@ function (Playlist, API, Player) {
             }).done(ok).fail(error);
 
             request.done(function() {
+                track.loved = true;
                 amplify.publish('transistor:loved', track);
             });
 
@@ -271,6 +272,7 @@ function (Playlist, API, Player) {
 
             var self = this;
             request.done(function () {
+                track.banned = true;
                 amplify.publish('transistor:banned', track);
                 self.skip();
             });
