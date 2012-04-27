@@ -52,7 +52,10 @@ function (Playlist, API, Player) {
 
             if (!this.api.session && token) {
                 this.getSession(token);
-            } 
+            } else {
+                if (jQuery.cookie('transistor'));
+                this.auth();
+            }
         },
 
         /**
@@ -78,6 +81,7 @@ function (Playlist, API, Player) {
         */
         deauth: function () {
             jQuery.cookie('transistor', null);
+            jQuery.cookie('transistorU', null);
             this.api.session = null;
         },
 
@@ -102,6 +106,7 @@ function (Playlist, API, Player) {
                 self.api.session = session.key;
 
                 jQuery.cookie('transistor', session.key, {expires: 365});
+                jQuery.cookie('transistorU', session.username, {expires: 365});
 
                 amplify.publish('transistor:authorised', session);
 
@@ -354,6 +359,19 @@ function (Playlist, API, Player) {
         setScrobble: function(scrobble) {
 
             this.scrobble = scrobble;
+        },
+
+        /**
+        * Get the username of the authorised user
+        * @returns {String|Boolean} Username if authed or false
+        */
+        getUsername: function () {
+
+            var username = false;
+            if (this.api.session) {
+                username = jQuery.cookie('transistorU');
+            }
+            return username;
         },
 
         /**
