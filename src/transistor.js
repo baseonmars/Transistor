@@ -128,7 +128,7 @@ function (Playlist, API, Player) {
         tune: function(url, ok, error) {
 
             var self = this;
-            var request = this.api.request("radio.tune", {Station: url});
+            var request = this.api.request("radio.tune", {station: url});
             request.done(ok).fail(error);
 
             request.done(function (data) {
