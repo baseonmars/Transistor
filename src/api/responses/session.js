@@ -2,7 +2,7 @@ define(function () {
 
     return function(json, type) {
 
-        var spec = $.parseJSON(json);
+        var spec = jQuery.parseJSON(json);
 
         if (typeof spec.error !== 'undefined') {
             return error;

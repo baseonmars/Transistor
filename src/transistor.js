@@ -48,7 +48,7 @@ function (Playlist, API, Player) {
             amplify.subscribe('transistorplayer:scrobblepoint', this, this.onScrobblePoint);
             amplify.subscribe('transistorplayer:whileplayling', this, this.onPlayback);
 
-            var token = $.url().param('token');
+            var token = jQuery.url().param('token');
 
             if (!this.api.session && token) {
                 this.getSession(token);
@@ -64,7 +64,7 @@ function (Playlist, API, Player) {
             if (session) {
                 this.api.session = session;
             } else {
-                var cookie = $.cookie('transistor');
+                var cookie = jQuery.cookie('transistor');
                 if (cookie) {
                     this.api.session = cookie;
                 } else {
@@ -77,7 +77,7 @@ function (Playlist, API, Player) {
         * Deauthenticates the current user, clearing the transistor cookie
         */
         deauth: function () {
-            $.cookie('transistor', null);
+            jQuery.cookie('transistor', null);
             this.api.session = null;
         },
 
@@ -101,7 +101,7 @@ function (Playlist, API, Player) {
 
                 self.api.session = session.key;
 
-                $.cookie('transistor', session.key, {expires: 365});
+                jQuery.cookie('transistor', session.key, {expires: 365});
 
                 amplify.publish('transistor:authorised', session);
 
@@ -150,7 +150,7 @@ function (Playlist, API, Player) {
         */
         play: function(ok, error) {
 
-            var request = $.Deferred();
+            var request = jQuery.Deferred();
             request.done(ok).fail(error);
 
             if (this.player.hasTrack()) {
@@ -206,7 +206,7 @@ function (Playlist, API, Player) {
         next: function(ok, error) {
 
             var next = this.playlist.next();
-            var request = $.Deferred().done(ok).fail(error);
+            var request = jQuery.Deferred().done(ok).fail(error);
 
             if (!next) {
 
@@ -306,7 +306,7 @@ function (Playlist, API, Player) {
                 });
             } else {
                 
-                request = $.Deferred().fail(error).reject();
+                request = jQuery.Deferred().fail(error).reject();
             }
 
             return request;

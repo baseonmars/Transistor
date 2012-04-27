@@ -1,7 +1,7 @@
 define(['./track.js'], function (track) {
 
     return function(json, type) {
-        var spec = $.parseJSON(json);
+        var spec = jQuery.parseJSON(json);
         var xspf = {
             title:spec.playlist.title,
             creator:spec.playlist.creator,

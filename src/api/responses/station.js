@@ -1,7 +1,7 @@
 define(function() {
 
 	return function(json) {
-		var spec = $.parseJSON(json);
+		var spec = jQuery.parseJSON(json);
 		return spec;
 	};
 });

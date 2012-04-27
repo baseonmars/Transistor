@@ -14,7 +14,7 @@ define(['./services.js'], function (Services) {
 
         params = params || {};
 
-        var xhr = $.ajax({
+        var xhr = jQuery.ajax({
             type: this.typeOf(method),
             url: this.baseUrl,
             data: this.getParams(method, params),
@@ -50,7 +50,7 @@ define(['./services.js'], function (Services) {
 
     LFMAPIClient.prototype.getParams = function(method, params) {
 
-        var data = $.extend({
+        var data = jQuery.extend({
             method: method,
             api_key: this.apiKey,
             format: 'json',
