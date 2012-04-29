@@ -2,10 +2,6 @@ define(['./track.js'], function (track) {
 
     return function(spec) {
 
-        if (spec.hasOwnProperty('error')) {
-            return error;
-        }
-
         var xspf = {
             title:spec.playlist.title,
             creator:spec.playlist.creator,

@@ -2,10 +2,6 @@ define(function () {
 
     return function(spec) {
 
-        if (spec.hasOwnProperty('error')) {
-            return error;
-        }
-
         var session = spec.session;
 
         var Session = {

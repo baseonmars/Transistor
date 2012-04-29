@@ -35,9 +35,18 @@ define(['./services.js'], function (Services) {
     };
 
     LFMAPIClient.prototype.parserFor = function(method) {
-        return function (data) {
-            return Services[method] && Services[method].parser(data);
-        };
+        var lambda;
+
+        if (data.hasOwnProperty('error')) {
+            lambda = function (data) {
+                return jQuery.Deferred().rejectWith(data.error);
+            };
+        } 
+        else {
+            lambda =  function (data) {
+                return Services[method] && Services[method].parser(data);
+            };
+        }
     };
 
     LFMAPIClient.prototype.typeOf = function(method) {

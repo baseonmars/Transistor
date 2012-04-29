@@ -2,10 +2,6 @@ define(function () {
 
     return function(spec) {
 
-        if (typeof spec.error !== 'undefined') {
-            return error;
-        }
-
         var np = spec.nowplaying;
 
         var NowPlaying = {
