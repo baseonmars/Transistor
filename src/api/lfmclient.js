@@ -35,18 +35,21 @@ define(['./services.js'], function (Services) {
     };
 
     LFMAPIClient.prototype.parserFor = function(method) {
-        var lambda;
 
-        if (data.hasOwnProperty('error')) {
-            lambda = function (data) {
-                return jQuery.Deferred().rejectWith(data.error);
-            };
-        } 
-        else {
-            lambda =  function (data) {
-                return Services[method] && Services[method].parser(data);
-            };
-        }
+        return function (data, status, xhr) {
+
+            var result;
+            if (data.hasOwnProperty('error')) {
+                result = jQuery.Deferred().rejectWith(data.error);
+            } else {
+                result = Services[method] && Services[method].parser(data);
+            }
+            return result;
+        };
+    };
+
+    LFMAPIClient.prototype.error = function(data) {
+
     };
 
     LFMAPIClient.prototype.typeOf = function(method) {
