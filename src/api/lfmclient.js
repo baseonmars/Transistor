@@ -17,13 +17,13 @@ define(['./services.js'], function (Services) {
         var xhr = jQuery.ajax({
             type: this.typeOf(method),
             url: this.baseUrl,
-            data: this.getParams(method, params),
-            dataFilter: this.parserFor(method)
+            data: this.getParams(method, params)
         });
 
-        xhr.done(ok);
-        xhr.fail(error);
-        return xhr.promise();
+        return xhr.promise().
+        pipe(this.parserFor(method)).
+        done(ok).
+        fail(error);
     };
 
 

@@ -6,16 +6,14 @@ define(['../responses/xspf.js'], function (xspf) {
             getPlaylist: {
                 auth: true,
                 method: 'GET',
-                parser: function (data, type) { 
-                   var string = xspf(data);
-                   string = JSON.stringify(string);
-                   return string;
+                parser: function (data) { 
+                   return xspf(data);
                 }
             },
             tune: {
                 auth: true,
                 method: 'POST',
-                parser: function (data, type) { 
+                parser: function (data) { 
                     return data;
                 } 
             }

@@ -1,9 +1,9 @@
 define(function () {
 
-    return function(spec, type) {
+    return function(spec) {
 
-        if (type === 'json') {
-            spec = jQuery.parseJSON(spec);
+        if (spec.hasOwnProperty('error')) {
+            return error;
         }
 
         var track = {
@@ -28,6 +28,7 @@ define(function () {
             trackauth     : spec.extension.trackauth,
             trackpage     : spec.extension.trackpage
         };
+
         return track;
     };
 });

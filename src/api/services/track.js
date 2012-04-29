@@ -6,35 +6,35 @@ define(['../responses/ok.js', '../responses/nowPlaying.js'], function (ok, nowPl
             love: {
                 auth: true,
                 method: 'POST',
-                parser: function (data, type) { 
-                   return JSON.stringify(ok(data, type));
+                parser: function (data) { 
+                   return ok(data);
                 }
             },
             ban: {
                 auth: true,
                 method: 'POST',
-                parser: function (data, type) { 
-                   return JSON.stringify(ok(data, type));
+                parser: function (data) { 
+                   return ok(data);
                 }
             },
             unlove: {
                 auth: true,
                 method: 'POST',
-                parser: function (data, type) {
-                    return JSON.stringify(ok(data, type));
+                parser: function (data) {
+                    return ok(data, type);
                 }
             },
             updateNowPlaying: {
                 auth: true,
                 method: 'POST',
-                parser: function (data, type) { 
-                   return JSON.stringify(nowPlaying(data, type));
+                parser: function (data) { 
+                   return nowPlaying(data);
                 }
             },
             scrobble: {
                 auth: true,
                 method: 'POST',
-                parser: function (data, type) {
+                parser: function (data) {
                     return data;
                 }
             }

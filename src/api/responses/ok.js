@@ -1,9 +1,9 @@
 define(function () {
 
-    return function(spec, type) {
+    return function(spec) {
 
-        if (type === 'json') {
-            spec = jQuery.parseJSON(spec);
+        if (spec.hasOwnProperty('error')) {
+            return error;
         }
 
         return spec.status === 'ok';

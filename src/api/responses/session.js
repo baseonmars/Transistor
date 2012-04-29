@@ -1,10 +1,8 @@
 define(function () {
 
-    return function(json, type) {
+    return function(spec) {
 
-        var spec = jQuery.parseJSON(json);
-
-        if (typeof spec.error !== 'undefined') {
+        if (spec.hasOwnProperty('error')) {
             return error;
         }
 

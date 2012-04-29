@@ -6,8 +6,8 @@ define(['../responses/session.js'], function(session) {
             getSession: {
                 auth: 'auth',
                 method: 'GET',
-                parser: function (data, type) {
-                    return JSON.stringify(session(data, type));
+                parser: function (data) {
+                    return session(data);
                 }
             }
         }

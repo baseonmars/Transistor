@@ -166,7 +166,7 @@ function (Playlist, API, Player) {
                     request.reject(e);
                 }
             } else {
-                request = this.skip(ok, error);
+                request = this.next(ok, error);
             }
 
             return request;

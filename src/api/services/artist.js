@@ -6,7 +6,7 @@ define(function () {
             getInfo:  {
                 auth: false,
                 method: 'GET',
-                parser: function (data, type) {
+                parser: function (data) {
                     return data;
                 }
             }

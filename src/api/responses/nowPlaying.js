@@ -1,8 +1,6 @@
 define(function () {
 
-    return function(json, type) {
-
-        var spec = jQuery.parseJSON(json);
+    return function(spec) {
 
         if (typeof spec.error !== 'undefined') {
             return error;
