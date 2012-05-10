@@ -1,5 +1,5 @@
 window.SM2_DEFER = true;
-define(function () {
+define(['../lib/class'], function (Class) {
 
     // Give each player a unique ID number
     var _id = 0;

@@ -1,5 +1,7 @@
-define(function () {
+define(function (require) {
 
+    var Class = require('../lib/class');
+    
     var Playlist = Class.extend({
         
         init: function () {

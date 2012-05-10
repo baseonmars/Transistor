@@ -1,9 +1,12 @@
 define([
+    '../lib/class',
     '../src/playlist.js', 
     '../src/api/lfmclient.js',
-    '../src/player.js'
+    '../src/player.js',
+    '../lib/jquery.url.js',
+    '../lib/jquery.cookie.js'
 ], 
-function (Playlist, API, Player) {
+function (Class, Playlist, API, Player) {
 
     /**
     * Transistor is a library for building Last.fm Radio clients

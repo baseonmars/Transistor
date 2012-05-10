@@ -1,4 +1,8 @@
-define(['./services.js'], function (Services) {
+define([
+    './services',
+    '../../lib/md5.js',
+    '../../lib/json2.js'
+], function (Services) {
 
 
     var LFMAPIClient = function LFMAPIClient(apiKey, secret, session) {
