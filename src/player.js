@@ -1,4 +1,3 @@
-window.SM2_DEFER = true;
 define(['../lib/class'], function (Class) {
 
     // Give each player a unique ID number
@@ -14,8 +13,6 @@ define(['../lib/class'], function (Class) {
     var Player = Class.extend({
         init: function(swfUrl) {
             this.id = getId();
-            window.soundManager = new SoundManager(swfUrl); // Flash expects window.soundManager.
-            soundManager.beginDelayedInit();
             this.playlist = null;
             this.volume = 100;
         },
