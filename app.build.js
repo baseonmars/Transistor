@@ -1,6 +1,6 @@
 ({
-    name:"src/main",
+    name:"transistor",
     out:"lib/transistor-async.js",
-    baseUrl:"."
+    baseUrl:"./src"
 })
 
