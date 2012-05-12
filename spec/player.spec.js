@@ -8,7 +8,7 @@ require.config({
 });
 define([
     '../src/player',
-    'require', "soundmanager", "jquery"], function (Player, require) {
+    'require', "soundmanager", "jquery", "amplify"], function (Player, require) {
 
         window.soundManager = new SoundManager();
         window.soundManager.url = '../lib/';
@@ -16,36 +16,44 @@ define([
 
     describe("A Player", function () {
 
-        it("should have it's own soundManager", function () {
-
-            var player = new Player();
-            expect(player.device).not.toBe(window.soundManager);
-            expect(window.soundManager).toBeTruthy();
+        beforeEach(function () {
+            window.soundManager.reboot();
         });
 
         it("should throw an error if soundmanager isn't loaded", function () {
 
-            var oldSMObj = window.soundmanager;
-            var oldSMCla = window.SoundManager;
-            window.soundmanager = window.SoundManager = null;
-            expect(function () { 
-                new Player();
-            }).toThrow(new Error("SoundManager 2 is required"));
-            window.soundmanager = oldSMObj;
-            window.SoundManager = oldSMCla;
+            var oldSm = window.soundManager;
+            delete window.soundManager;
+            expect(function () { new Player(); }).toThrow();
+            window.soundManager = oldSm;
+        });
+
+        it("should use window.soundManager", function () {
+
+            var ready = false, player = new Player();
+            amplify.subscribe("transistorplayer:ready", function () {
+                ready = true;
+            });
+            waitsFor(function () { return ready;}, "player", 200);
+            runs(function () {
+                expect(player.device).toBe(window.soundManager);
+            });
+
         });
 
         it("should emit a ready event when sound manager loads", function () {
 
-            var ready = false, player;
+            var ready = false, player, playerid;
+            amplify.subscribe("transistorplayer:ready", function (playerid) {
+                ready = true;
+                id = playerid;
+
+            });
+            player = new Player(window.soundManager);
+            waitsFor(function () { return ready; }, "player", 200);
             runs(function () {
-                require(["amplify"], function () { 
-                    amplify.subscribe("transistorplayer:ready", function () {
-                        ready = true;
-                    });
-                    player = new Player('../lib/');
-                    waitsFor(function () { return ready; }, "player", 200);
-                });
+                expect(player.device.enabled).toBe(true);
+                expect(id).toBe(player.id);
             });
         });
     });

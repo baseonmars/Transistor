@@ -6,9 +6,10 @@
     <body>
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
         <script src="lib/amplify.min.js"></script>
-        <script src="lib/soundmanager2-nodebug-jsmin.js"></script>
+        <script src="lib/soundmanager2.js"></script>
         <script src="lib/transistor-sync.js"></script>
         <script>
+            soundManager.url = "./lib/";
             console.log(Transistor);
             window.radio = new Transistor({
                 key: "XXX", 

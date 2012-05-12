@@ -47,7 +47,12 @@
         // Let's use the global namespace. This is just a demo after all...
         var radio = null;
 
-        require(['./lib/soundmanager2-nodebug-jsmin.js', 'lib/transistor-async'], function() {
+        SM2_DEFER = true;
+        require(['./lib/soundmanager2-nodebug-jsmin.js', 'lib/transistor-async.js'], function() {
+
+            window.soundManager = new SoundManager();
+            window.soundManager.url = './lib/';
+            window.soundManager.beginDelayedInit();
 
             // nested require needed because lib/transistor-async is build
             // as a bundle of define statements. is there a way of doing 
