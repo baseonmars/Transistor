@@ -11,10 +11,11 @@ define(['../lib/class'], function (Class) {
     * Emits events through amplify.js message bus
     */
     var Player = Class.extend({
-        init: function(swfUrl) {
+        init: function() {
             this.id = getId();
             this.playlist = null;
             this.volume = 100;
+            this.device = this.getDevice();
         },
 
         play: function (track) {
@@ -24,7 +25,7 @@ define(['../lib/class'], function (Class) {
                     this.audio.unload();
                 }
                 var self = this;
-                var audio = soundManager.createSound({
+                var audio = self.device.createSound({
                     id: "track" + track.streamid,
                     url: track.location,
                     autoLoad: true,
@@ -67,19 +68,31 @@ define(['../lib/class'], function (Class) {
         setVolume: function (vol) {
             this.volume = vol;
             if (this.audio) {
-                soundManager.setVolume(this.audio.sID, vol);
+                self.device.setVolume(this.audio.sID, vol);
             }
         },
         onSMReady: function () {
-            this.ready = _soundManagerReady;
             amplify.publish('transistorplayer:ready');
         },
         hasTrack: function () {
             return this.audio && this.audio.playState === 1;
-        }
+        },
+        getDevice: function () {
 
+            if (typeof SoundManager !== 'function') {
+
+                throw new Error("SoundManager 2 is required");
+            } else {
+
+                var device = new SoundManager();
+                var self = this;
+                device.onready(function () {
+                    self.onSMReady();
+                });
+                return device;
+            }
+        }
     });
 
     return Player;
-
 });

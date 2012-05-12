@@ -23,8 +23,6 @@ function (Class, Playlist, API, Player) {
         * @constructs
         * @param cfg Configuration object
         * @param [cfg.player] A player
-        * @param [cfg.swfUrl] Location of the SoundManager swfs. 
-        * passed to the players constructor
         * @param [cfg.api] Api client to use
         * @param {String} [cfg.key] Your api key 
         * @param {String} [cfg.secret] Your api secret
@@ -35,7 +33,7 @@ function (Class, Playlist, API, Player) {
         init: function(cfg) {
             cfg = cfg || {}; 
 
-            this.player      = cfg.player || new Player(cfg.swfUrl || 'lib');
+            this.player      = cfg.player || new Player();
             this.api         = cfg.api || new API(cfg.key, cfg.secret, cfg.session);
             this.playlist    = cfg.playlist || new Playlist();
             this.scrobbling  = false === cfg.scrobble ? false : true;
