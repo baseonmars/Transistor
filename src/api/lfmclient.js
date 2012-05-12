@@ -1,7 +1,6 @@
 define([
     './services',
-    '../../lib/md5.js',
-    '../../lib/json2.js'
+    '../../lib/md5.js'
 ], function (Services) {
 
 
