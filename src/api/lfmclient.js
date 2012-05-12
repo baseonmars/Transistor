@@ -1,7 +1,7 @@
 define([
     './services',
     '../../lib/md5.js'
-], function (Services) {
+], function (Services, md5) {
 
 
     var LFMAPIClient = function LFMAPIClient(apiKey, secret, session) {
