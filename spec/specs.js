@@ -1,4 +1,4 @@
-require(['player.spec.js'], function () {
+require(['player.spec', './api/services.spec'], function () {
     (function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;

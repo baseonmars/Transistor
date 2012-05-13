@@ -1,6 +1,12 @@
+require.config({
+    paths: {
+        jquery: "../../lib/query",
+        md5:    "../../lib/md5"
+    }
+});
 define([
     './services',
-    '../../lib/md5.js'
+    'md5'
 ], function (Services, md5) {
 
 
