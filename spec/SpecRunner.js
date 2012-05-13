@@ -29,7 +29,7 @@ function waitFor(testFx, onReady, timeOutMillis) {
                     phantom.exit(1);
                 } else {
                     // Condition fulfilled (timeout and/or condition is 'true')
-                    console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
+                    //console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
                     typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
                     clearInterval(interval); //< Stop this interval
                 }
@@ -70,22 +70,44 @@ page.open(system.args[1], function(status){
                 var results = jasmine.getEnv().currentRunner().results();
                 var suites  = jasmine.getEnv().currentRunner().suites();
 
+                var red   = '\033[31m';
+                var blue  = '\033[34m';
+                var green = '\033[32m';    
+                var reset = '\033[0m';
                 console.log("Total:", results.totalCount, "Passed:", results.passedCount, "Failed:", results.failedCount);
                 if (results.skipped) {
                     console.log("Some tests were skipped");
                 }
 
+                var messages = [];
                 for (var i=0; i < suites.length; i++) {
-                    printSuite(suites[i]);
+                    printSuite(suites[i], messages);
                 }
 
-                function printSuite(suite) {
-                    console.log(suite.description);
+
+                function printSuite(suite, messages) {
+
+                    console.log("\n", suite.description, "\n");
+
                     var specs = suite.specs();
                     for (var i=0; i < specs.length; i++) {
-
-                        console.log("\t", specs[i].description);
+                        var results = specs[i].results();
+                        var color = results.passed() ? green : red;
+                        console.log("\t", color + specs[i].description + reset);
+                        if (!results.passed()) {
+                            messages.push(suite.description + 
+                                specs[i].description + "\n" +
+                                results.getItems()[0].message);
+                        }
                     }
+                    console.log("");
+                }
+
+                if (messages.length > 0) {
+                    console.log("\n", "Error messages", "\n");
+                }
+                for (i = 0; i < messages.length; i++) {
+                    console.log(red + messages[i] + "\n\n" + reset);
                 }
             });
             phantom.exit();
