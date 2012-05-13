@@ -1,4 +1,7 @@
-define(['../responses/ok.js', '../responses/nowPlaying.js'], function (ok, nowPlaying) {
+define([
+    '../responses/ok', 
+    '../responses/nowPlaying'
+], function (ok, nowPlaying) {
 
     var Track = {
         "package": 'track',

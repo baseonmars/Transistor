@@ -6,9 +6,9 @@ require.config({
 define([
     'jquery',
     '../lib/class',
-    '../src/playlist.js', 
-    '../src/api/lfmclient.js',
-    '../src/player.js',
+    '../src/playlist', 
+    '../src/api/lfmclient',
+    '../src/player',
     '../lib/jquery.url.js',
     '../lib/jquery.cookie.js'
 ], 

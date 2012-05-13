@@ -1,4 +1,4 @@
-define(['../responses/xspf.js'], function (xspf) {
+define(['../responses/xspf'], function (xspf) {
 
     Radio = {
         "package": 'radio',

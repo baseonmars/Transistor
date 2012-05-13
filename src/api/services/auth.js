@@ -1,4 +1,4 @@
-define(['../responses/session.js'], function(session) {
+define(['../responses/session'], function(session) {
 
     var Auth = {
         "package": 'auth',
