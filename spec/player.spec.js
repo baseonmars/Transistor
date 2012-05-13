@@ -3,12 +3,13 @@ require.config({
     paths: {
         jquery: "../lib/jquery.min",
         amplify: "../lib/amplify.min",
-        soundmanager: "../lib/soundmanager2"
+        soundmanager: "../lib/soundmanager2",
+        depend: "../lib/depend"
     }
 });
 define([
     '../src/player',
-    'require', "soundmanager", "jquery", "amplify"], function (Player, require) {
+    'require', "soundmanager", "depend!amplify[jquery]"], function (Player, require) {
 
         window.soundManager = new SoundManager();
         window.soundManager.url = '../lib/';
