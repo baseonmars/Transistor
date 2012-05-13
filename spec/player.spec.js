@@ -3,7 +3,7 @@ require.config({
     paths: {
         jquery: "../lib/jquery.min",
         amplify: "../lib/amplify.min",
-        soundmanager: "../lib/soundmanager2",
+        soundmanager: "./lib/sm2-fake",
         depend: "../lib/depend"
     }
 });
