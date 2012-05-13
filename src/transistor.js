@@ -1,4 +1,10 @@
+require.config({
+    paths: {
+        jquery: "../lib/jquery.shim"
+    }
+});
 define([
+    'jquery',
     '../lib/class',
     '../src/playlist.js', 
     '../src/api/lfmclient.js',
@@ -6,7 +12,7 @@ define([
     '../lib/jquery.url.js',
     '../lib/jquery.cookie.js'
 ], 
-function (Class, Playlist, API, Player) {
+function (jQuery, Class, Playlist, API, Player) {
 
     /**
     * Transistor is a library for building Last.fm Radio clients

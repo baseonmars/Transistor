@@ -1,13 +1,14 @@
 require.config({
     paths: {
-        jquery: "../../lib/query",
+        jquery: "../../lib/query.shim",
         md5:    "../../lib/md5"
     }
 });
 define([
     './services',
-    'md5'
-], function (Services, md5) {
+    'md5',
+    'jquery'
+], function (Services, md5, jQuery) {
 
 
     var LFMAPIClient = function LFMAPIClient(apiKey, secret, session) {

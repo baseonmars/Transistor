@@ -13,9 +13,9 @@ define([
     defineService(track);
     defineService(artist);
 
-    function defineService(module) {
-        jQuery.each(module.methods, function(key, val) {
-            var hash = module['package']+"."+key;
+    function defineService(pkg) {
+        jQuery.each(pkg.methods, function(key, val) {
+            var hash = pkg['package']+"."+key;
             Services[hash] = val;
         });
     }
