@@ -1,6 +1,7 @@
 require.config({
     paths: {
-        jquery: "../lib/jquery.shim"
+        jquery: "../lib/jquery.shim",
+        depend: "../lib/depend"
     }
 });
 define([
@@ -9,8 +10,8 @@ define([
     '../src/playlist', 
     '../src/api/lfmclient',
     '../src/player',
-    '../lib/jquery.url.js',
-    '../lib/jquery.cookie.js'
+    'depend!../lib/jquery.url.js[jquery]',
+    'depend!../lib/jquery.cookie.js[jquery]'
 ], 
 function (jQuery, Class, Playlist, API, Player) {
 
