@@ -66,22 +66,26 @@ page.open(system.args[1], function(status){
             });
         }, function(){
             page.evaluate(function(){
-                var failed = document.body.querySelectorAll('.jasmine_reporter .suite.failed');
-                var passed = document.body.querySelectorAll('.jasmine_reporter .suite.passed');
-                printSummary(passed, "Passed: ");
-                printSummary(failed, "Failed: ");
 
-                function printSummary(list, banner) {
+                var results = jasmine.getEnv().currentRunner().results();
+                var suites  = jasmine.getEnv().currentRunner().suites();
 
-                    if (list.length) console.log(banner, list.length, "\n");
-                    for (i = 0; i < list.length; ++i) {
-                        var el = list[i];
-                        var desc = el.querySelectorAll('.description');
-                        for (j = 0; j < desc.length; ++j) {
-                            console.log(desc[j].innerText);
-                        }
+                console.log("Total:", results.totalCount, "Passed:", results.passedCount, "Failed:", results.failedCount);
+                if (results.skipped) {
+                    console.log("Some tests were skipped");
+                }
+
+                for (var i=0; i < suites.length; i++) {
+                    printSuite(suites[i]);
+                }
+
+                function printSuite(suite) {
+                    console.log(suite.description);
+                    var specs = suite.specs();
+                    for (var i=0; i < specs.length; i++) {
+
+                        console.log("\t", specs[i].description);
                     }
-                    if (list.length) console.log('');
                 }
             });
             phantom.exit();
