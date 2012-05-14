@@ -45,10 +45,6 @@ if (system.args.length !== 2) {
 
 var page = require('webpage').create();
 
-// Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
-page.onConsoleMessage = function(msg) {
-    console.log(msg);
-};
 
 
 page.open(system.args[1], function(status){
@@ -56,6 +52,24 @@ page.open(system.args[1], function(status){
         console.log("Unable to access network");
         phantom.exit();
     } else {
+
+        
+        page.onConsoleMessage = function (msg) { 
+
+            var red   = '\u001b[31m',
+                green = '\u001b[32m',    
+                reset = '\u001b[0m';
+
+            var fs = require("fs"); 
+            if (msg === "PhantomJSReporterfailed spec") {
+                fs.write("/dev/stdout", red + "." + reset, "w");
+            } else if (msg === "PhantomJSReporter passed spec") {
+                fs.write("/dev/stdout", green + "." + reset, "w");
+            } else {
+                console.log(msg);
+            }
+        };
+
         waitFor(function(){
             return page.evaluate(function(){
                 var text = document.body.querySelector('.banner .duration').innerHTML || "";
@@ -76,6 +90,8 @@ page.open(system.args[1], function(status){
                     white = '\u001b[35m',
                     reset = '\u001b[0m',
                     bold  = '\u001b[1m';
+
+                console.log("\n");
 
                 logSummary(results);
 
