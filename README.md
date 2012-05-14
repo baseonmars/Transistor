@@ -23,8 +23,7 @@ Authenticate (obtaining a session is left as an exercise to the reader.
 
     var radio = new Transistor({
         key: API_KEY,
-        secret: API_SECRET,
-        session: USER_SESSION_KEY
+        secret: API_SECRET
     });
 
 Or 
@@ -36,13 +35,16 @@ Or
     
     radio.auth() // will redirect user to www.last.fm/api/auth, storing result in cookie
 
+Sessions are stored as a cookie. After the initial authorisation sessions are automatically
+restored on instantiation.
+
 Tune a station and start playing it
 
     radio.tune("lastfm://user/baseonmars/library/mix", function () {
         radio.play();
     });
 
-Or maybe you like deffered objects?
+Or maybe you like deferred objects?
 
     var request = radio.tune("lastfm://artist/DJ+SPINN")
     request.done(function () {
