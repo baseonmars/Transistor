@@ -53,6 +53,11 @@ page.open(system.args[1], function(status){
         phantom.exit();
     } else {
 
+        // Set PhantpmJS to true so Reporter can
+        // tell whether to output or not
+        page.evaluate(function () {
+            window.PhantomJS = true;
+        });
         
         page.onConsoleMessage = function (msg) { 
 
