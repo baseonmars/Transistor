@@ -70,30 +70,42 @@ page.open(system.args[1], function(status){
                 var results = jasmine.getEnv().currentRunner().results();
                 var suites  = jasmine.getEnv().currentRunner().suites();
 
-                var red   = '\033[31m';
-                var blue  = '\033[34m';
-                var green = '\033[32m';    
-                var reset = '\033[0m';
-                console.log("Total:", results.totalCount, "Passed:", results.passedCount, "Failed:", results.failedCount);
+                var red   = '\u001b[31m',
+                    blue  = '\u001b[34m',
+                    green = '\u001b[32m',    
+                    white = '\u001b[35m',
+                    reset = '\u001b[0m',
+                    bold  = '\u001b[1m';
+
+                logSummary(results);
+
                 if (results.skipped) {
-                    console.log("Some tests were skipped");
+                    // TODO: read docs on how this should work
+                    console.log(red + "Some tests were skipped" + reset);
                 }
 
                 var messages = [];
                 for (var i=0; i < suites.length; i++) {
-                    printSuite(suites[i], messages);
+                    logSuite(suites[i], messages);
                 }
 
+                if (messages.length > 0) console.log("\n", "Error messages", "\n");
 
-                function printSuite(suite, messages) {
+                for (i = 0; i < messages.length; i++) {
+                    console.log(red + messages[i] + "\n\n" + reset);
+                }
 
-                    console.log("\n", suite.description, "\n");
+                logSummary(results);
+
+                function logSuite(suite, messages) {
+
+                    console.log("\n", bold + suite.description + reset, "\n");
 
                     var specs = suite.specs();
                     for (var i=0; i < specs.length; i++) {
                         var results = specs[i].results();
                         var color = results.passed() ? green : red;
-                        console.log("\t", color + specs[i].description + reset);
+                        console.log("  ", color + specs[i].description + reset);
                         if (!results.passed()) {
                             messages.push(suite.description + 
                                 specs[i].description + "\n" +
@@ -102,13 +114,14 @@ page.open(system.args[1], function(status){
                     }
                     console.log("");
                 }
+                function logSummary(results) {
+                    console.log(
+                        bold + "Total:", results.totalCount, 
+                        green + "Passed:", results.passedCount, 
+                        red + "Failed:", results.failedCount + reset
+                    );
+                }
 
-                if (messages.length > 0) {
-                    console.log("\n", "Error messages", "\n");
-                }
-                for (i = 0; i < messages.length; i++) {
-                    console.log(red + messages[i] + "\n\n" + reset);
-                }
             });
             phantom.exit();
         });
