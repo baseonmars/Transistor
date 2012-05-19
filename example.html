@@ -84,9 +84,13 @@
                 $('#tune').show();
 
                 function onPlay(id, track) {
+                    onResume.apply(this, arguments);
+                    $('h1').text('You are listening to '+track.title+' by '+track.artist);
+                }
+
+                function onResume(id, track) {
                     $('#play').hide();
                     $('#pause, #skip, #love, #ban').show();
-                    $('h1').text('You are listening to '+track.title+' by '+track.artist);
                 }
 
                 function onPause(id, track) {
@@ -96,7 +100,7 @@
 
                 // Set up event handlers
                 amplify.subscribe('transistorplayer:playing', radio, onPlay);
-                amplify.subscribe('transistorplayer:resumed', radio, onPlay);
+                amplify.subscribe('transistorplayer:resumed', radio, onResume);
                 amplify.subscribe('transistorplayer:paused', radio, onPause);
             });
         });
