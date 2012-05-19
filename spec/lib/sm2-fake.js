@@ -4,7 +4,7 @@ define(['jquery'], function (jQuery) {
 
     SoundManager.prototype.onready = function (callback) {
         setTimeout(function () {
-            callback();
+            callback.apply(this);
         });
     };
 
@@ -12,6 +12,10 @@ define(['jquery'], function (jQuery) {
 
     SoundManager.prototype.beginDelayedInit = function () {};
     SoundManager.prototype.reboot = function () {};
+    SoundManager.prototype.createSound = function (args) {
+        var FakeAudio = function () {};
+        return new FakeAudio(); 
+    };
 
     // SM2 expects these to exist, so reproduce
     window.soundManager = new SoundManager();
