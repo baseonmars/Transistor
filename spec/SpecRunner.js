@@ -120,7 +120,7 @@ page.open(system.args[1], function(status){
 
                 function logSuite(suite, messages) {
 
-                    console.log("\n", bold + suite.description + reset, "\n");
+                    console.log("\n", bold + suite.getFullName() + reset, "\n");
 
                     var specs = suite.specs();
                     for (var i=0; i < specs.length; i++) {
@@ -128,8 +128,7 @@ page.open(system.args[1], function(status){
                         var color = results.passed() ? green : red;
                         console.log("  ", color + specs[i].description + reset);
                         if (!results.passed()) {
-                            messages.push(suite.description + " " + 
-                                specs[i].description + "\n" +
+                            messages.push(specs[i].getFullName() + "\n" +
                                 results.getItems()[0].message);
                         }
                     }
