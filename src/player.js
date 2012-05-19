@@ -80,8 +80,8 @@ define(['../lib/class'], function (Class) {
         setupDevice: function (sm2, callback) {
 
             var self = this;
+            self.device = sm2;
             sm2.onready(function () {
-                self.device = sm2;
                 callback.call(self);
             });
         }

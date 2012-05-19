@@ -66,7 +66,7 @@ page.open(system.args[1], function(status){
                 reset = '\u001b[0m';
 
             var fs = require("fs"); 
-            if (msg === "PhantomJSReporterfailed spec") {
+            if (msg === "PhantomJSReporter failed spec") {
                 fs.write("/dev/stdout", red + "." + reset, "w");
             } else if (msg === "PhantomJSReporter passed spec") {
                 fs.write("/dev/stdout", green + "." + reset, "w");
@@ -128,7 +128,7 @@ page.open(system.args[1], function(status){
                         var color = results.passed() ? green : red;
                         console.log("  ", color + specs[i].description + reset);
                         if (!results.passed()) {
-                            messages.push(suite.description + 
+                            messages.push(suite.description + " " + 
                                 specs[i].description + "\n" +
                                 results.getItems()[0].message);
                         }
