@@ -1,4 +1,4 @@
-require(['player.spec', './api/services.spec'], function () {
+require(['player.spec', 'playlist.spec', './api/services.spec'], function () {
     (function() {
 
       var jasmineEnv = jasmine.getEnv();
